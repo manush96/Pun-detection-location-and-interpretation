@@ -99,6 +99,7 @@ print('Training model.')
 sequence_input = Input(shape=(MAX_SEQUENCE_LENGTH,), dtype='int32')
 embedded_sequences = embedding_layer(sequence_input)
 x=LSTM(100,return_sequences=True)(embedded_sequences)
+x = Conv1D(128, 5, activation = 'relu') (x)
 x = Conv1D(128, 5, activation='relu')(x)
 x = GlobalMaxPooling1D()(x)
 
@@ -116,9 +117,9 @@ history=model.fit(x_train, y_train,
 accuracy=model.evaluate(x_test,y_test)
 print(accuracy)
 plot_model(model,to_file="model.png")
-
-
 print(history.history.keys())
+
+
 # summarize history for accuracy
 plt.plot(history.history['acc'])
 plt.plot(history.history['val_acc'])
